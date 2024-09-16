@@ -22,7 +22,7 @@ app.set('view engine', 'ejs');
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: { secure: false } // Set to true if using HTTPS
 }));
 

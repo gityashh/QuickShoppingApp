@@ -10,11 +10,19 @@ router.get("/google/callback",
     passport.authenticate("google",{successRedirect:"/user/profile",failureRedirect:"/"}),
 )
 
-router.get('/logout', function(req, res, next) {
-    req.logout(function(err) {
-      if (err) { return next(err); }
-      res.redirect('/');
-    });
+router.get("/logout", (req, res) => {
+  req.logout((err) => {
+      if (err) {
+          return res.status(500).send("Error in logging out");
+      }
+      req.session.destroy((err) => {
+          if (err) {
+              return res.status(500).send("Error in destroying session");
+          }
+          res.clearCookie("connect.sid");
+          res.redirect("/user/login");
+      });
   });
+});
 
 module.exports = router;
