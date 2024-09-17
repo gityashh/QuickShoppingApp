@@ -5,6 +5,8 @@ const jwt = require('jsonwebtoken')
 const {Admin} = require('../models/adminSchema')
 const isAdmin = require('../middlewares/admin-middleware')
 require("dotenv").config()
+const { Product } = require("../models/productSchema");
+const { Category } = require("../models/categorySchema");
 
 
 router.get("/",(req,res)=>{
@@ -15,8 +17,10 @@ router.get("/login",(req,res)=>{
     res.render("admin_login");
 })
 
-router.get("/dashboard",isAdmin,(req,res)=>{
-    res.render("admin_dashboard");
+router.get("/dashboard",isAdmin,async (req,res)=>{
+    let products = await Product.find().countDocuments();
+    let categories = await Category.find().countDocuments();
+    res.render("admin_dashboard",{products,categories});
 })
 
 router.get("/logout",isAdmin,(req,res)=>{
@@ -31,7 +35,7 @@ router.post("/login",async (req,res)=>{
 
     let valid = await bcrypt.compare(password, admin.password);
     if(valid){
-        let token = jwt.sign({ email: email},process.env.JWT_SECRET);
+        let token = jwt.sign({ email: email, admin:admin.admin},process.env.JWT_SECRET);
         res.cookie("token",token);
         res.redirect("/admin/dashboard")
     }

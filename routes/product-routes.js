@@ -3,6 +3,7 @@ const router = express.Router();
 const upload = require("../config/multer-config");
 const { Product, validateProduct } = require("../models/productSchema");
 const validateAdmin = require("../middlewares/admin-middleware");
+const { Category, validateCategory } = require("../models/categorySchema");
 
 router.get("/",validateAdmin, async (req, res) => {
     const getTopProductsByCategory = async () => {
@@ -47,11 +48,17 @@ router.post("/",validateAdmin, upload.single("image"), async (req, res) => {
             name, price, category, stock, description, image: req.file.buffer
         })
         if (error) return res.send(error.message);
+        let categorycheck = await Category.findOne({name:category});
+        if (!categorycheck) {
+            let {error} = validateCategory({name:category});
+            if(error) return res.send(error.message);
+            categorycheck = await Category.create({name:category});
+        };
         let product = new Product({
-            name, price, category, stock, description, image: req.file.buffer
+            name, price, category:category, categoryRef:categorycheck._id, stock, description, image: req.file.buffer
         })
         await product.save();
-        res.redirect("/products");
+        res.redirect("back");
     } catch (error) {
         res.send(error.message);
     }

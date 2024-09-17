@@ -21,19 +21,7 @@ const cartSchema = mongoose.Schema({
 // Export the Mongoose model
 const Cart = mongoose.model('Cart', cartSchema);
 
-// Joi schema for validation
-const validateCart = (data) => {
-    const schema = Joi.object({
-        user: Joi.string().required(),  // Valid ObjectId
-        products: Joi.array().items(Joi.string().required()).min(1).required(),  // Array of valid ObjectIds
-        totalPrice: Joi.number().min(0).required()
-    });
 
-    return schema.validate(data);
-};
-
-// Export the validation function
 module.exports = {
-    Cart,
-    validateCart
+    Cart
 };

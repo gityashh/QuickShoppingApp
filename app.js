@@ -11,12 +11,13 @@ const adminRouter = require('./routes/admin-routes');
 const productRouter = require("./routes/product-routes");
 const categoryRouter = require("./routes/category-routes");
 const userRouter = require("./routes/user-routes");
+const cartRouter = require("./routes/cart-routes");
 
 require("dotenv").config();
 require("./config/google-auth-config");
 require("./config/mongoose-connection")();
 
-app.set('view engine', 'ejs');
+app.set('view engine', 'ejs');  
 
 // Use express-session middleware
 app.use(session({
@@ -41,5 +42,6 @@ app.use('/admin', adminRouter);
 app.use("/products",productRouter);
 app.use("/categories",categoryRouter);
 app.use("/user",userRouter);
+app.use("/cart",cartRouter);
 
 app.listen(3000);
