@@ -50,7 +50,6 @@ router.get("/add/:id", userLoggedIn, async (req, res) => {
             await cart.save();
         }
         res.redirect("back");
-
     } catch (error) {
         res.status(500).send(error);
     }
@@ -65,8 +64,9 @@ router.get("/remove/:id", userLoggedIn, async (req, res) => {
             return res.status(404).send("Cart not found");
         }
 
-        cart.products = cart.products.filter(p => p.toString() !== product._id.toString());
-        cart.totalPrice = cart.totalPrice - Number(product.price);
+        let prodId = cart.products.indexOf(product._id);
+        cart.products.splice(prodId, 1);
+        cart.totalPrice = Number(cart.totalPrice )- Number(product.price);
         await cart.save();
 
         res.redirect("back");
