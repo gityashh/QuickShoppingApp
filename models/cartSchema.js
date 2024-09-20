@@ -10,7 +10,7 @@ const cartSchema = mongoose.Schema({
     },
     products: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "productSchema",
+        ref: "Product",
         required: true
     }],
     totalPrice: { type: Number, required: true, min: 0 }
