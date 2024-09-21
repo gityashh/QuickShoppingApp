@@ -12,6 +12,7 @@ const productRouter = require("./routes/product-routes");
 const categoryRouter = require("./routes/category-routes");
 const userRouter = require("./routes/user-routes");
 const cartRouter = require("./routes/cart-routes");
+const paymentRouter = require("./routes/payment-routes");
 
 require("dotenv").config();
 require("./config/google-auth-config");
@@ -43,5 +44,6 @@ app.use("/products",productRouter);
 app.use("/categories",categoryRouter);
 app.use("/user",userRouter);
 app.use("/cart",cartRouter);
+app.use("/payment",paymentRouter);
 
 app.listen(3000);

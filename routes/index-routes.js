@@ -5,4 +5,9 @@ router.get("/",(req,res)=>{
     res.redirect('/user/products')
 });
 
+
+router.get("/map/:orderId",(req,res)=>{
+    res.render("map")
+});
+
 module.exports = router;

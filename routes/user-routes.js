@@ -4,10 +4,14 @@ const passport = require("passport");
 const { Product } = require("../models/productSchema");
 const {userLoggedIn} = require("../middlewares/user-middleware");
 const { Cart } = require("../models/cartSchema");
+const { Category } = require("../models/categorySchema");
 router.get("/products",userLoggedIn,async (req,res)=>{
     const getTopProductsByCategory = async () => {
         try {
             const productsByCategory = await Product.aggregate([
+                {
+                    $sort: { category: 1 }  // 1 for ascending, -1 for descending
+                },
                 {
                     // Group by category field
                     $group: {
