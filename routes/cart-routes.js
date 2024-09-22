@@ -3,7 +3,8 @@ const router = Router();
 const { userLoggedIn } = require("../middlewares/user-middleware");
 const { Cart } = require("../models/cartSchema");
 const { Product } = require("../models/productSchema");
-
+const { Address } = require("../models/userModel");
+const { User } = require("../models/userModel");
 router.get("/", userLoggedIn, async (req, res) => {
     try {
         let cart = await Cart.findOne({ user: req.session.passport.user }).populate("products");
@@ -70,6 +71,20 @@ router.get("/remove/:id", userLoggedIn, async (req, res) => {
         await cart.save();
 
         res.redirect("back");
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+})
+
+router.get("/address", userLoggedIn, async (req, res) => {
+    try {
+        const user = await User.findById(req.session.passport.user);
+        if(user.savedAddress.length == 0){
+            res.render("address", {user});
+        }
+        else{
+            res.render("address", {user,addresses:user.savedAddress});
+        }
     } catch (error) {
         res.status(500).send(error.message);
     }

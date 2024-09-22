@@ -5,6 +5,7 @@ const { Product } = require("../models/productSchema");
 const {userLoggedIn} = require("../middlewares/user-middleware");
 const { Cart } = require("../models/cartSchema");
 const { Category } = require("../models/categorySchema");
+
 router.get("/products",userLoggedIn,async (req,res)=>{
     const getTopProductsByCategory = async () => {
         try {

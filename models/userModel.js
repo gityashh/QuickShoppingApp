@@ -6,8 +6,22 @@ const adressSchema = mongoose.Schema({
     state: { type: String, required: true },
     city: { type: String, required: true },
     pincode: { type: Number, required: true, min: 100000, max: 999999 },
-    address: { type: String, required: true }
-});
+    houseNo: { type: String, required: true },
+    landmark: { type: String, required: true },
+    phone: { type: Number, required: true, min: 1000000000, max: 999999999999 },
+    location: {
+        type: {
+            type: String,
+            enum: ['Point'],
+        },
+        coordinates: {
+            type: [Number],
+        }
+    }
+}, { timestamps: true });
+
+const Address = mongoose.model("Address", adressSchema);
+
 
 // User schema for Mongoose
 const userSchema = mongoose.Schema({
@@ -30,12 +44,6 @@ const validateUser = (data) => {
         email: Joi.string().email().required(),
         phone: Joi.number().min(1000000000).max(999999999999),
         password: Joi.string().min(6).required(),
-        savedAddress: Joi.array().items(Joi.object({
-            state: Joi.string().required(),
-            city: Joi.string().required(),
-            pincode: Joi.number().min(100000).max(999999).required(),
-            address: Joi.string().required()
-        })),
     });
 
     return schema.validate(data);
@@ -43,6 +51,7 @@ const validateUser = (data) => {
 
 // Export model and validation function
 module.exports = {
-    User,   // Exported as 'User' to be used throughout the application
+    User,  
+    Address,
     validateUser
 };
