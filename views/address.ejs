@@ -1,0 +1,26 @@
+<%- include('./partials/header'); %>
+
+<div id="main " class="p-4 bg-zinc-100 flex flex-col gap-4">
+    <nav class="h-20 w-full bg-white flex p-4 justify-between items-center rounded-lg">
+        <i class="ri-arrow-left-s-line text-2xl"></i>
+        <h1 class="text-xl font-semibold">My Addresses</h1>
+        <div></div>
+    </nav>
+    <section class="w-full h-12 rounded-lg bg-white">
+        <button class="w-full h-full text-green-500 text-start px-4">+ Add new address</button>
+    </section>
+   <div class="px-4 "> <h1 class="text-md font-semibold text-zinc-500">Your saved addresses</h1></div>
+   <section class="address container w-full flex flex-col gap-2 py-4">
+    <div class="flex w-full h-32 bg-white rounded-lg p-4">
+        <div>
+            <i class="ri-home-3-line"></i>
+        </div>
+        <div>
+            <h1>Home</h1>
+            <p>1234 Main St, Anytown, USA</p>
+        </div>
+    </div>
+   </section>
+</div>
+
+<%- include('./partials/footer'); %>
