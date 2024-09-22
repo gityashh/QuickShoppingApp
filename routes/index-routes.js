@@ -6,7 +6,7 @@ router.get("/",(req,res)=>{
 });
 
 
-router.get("/map/:orderId",(req,res)=>{
+router.get("/map/",(req,res)=>{
     res.render("map")
 });
 
