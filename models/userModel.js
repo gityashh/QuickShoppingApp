@@ -3,8 +3,7 @@ const Joi = require('joi');
 
 // Address schema for Mongoose
 const adressSchema = mongoose.Schema({
-    state: { type: String, required: true },
-    city: { type: String, required: true },
+    type: { type: String, enum: ['Home', 'Work' , 'Other'], required: true },
     pincode: { type: Number, required: true, min: 100000, max: 999999 },
     houseNo: { type: String, required: true },
     landmark: { type: String, required: true },
