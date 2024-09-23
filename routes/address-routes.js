@@ -9,7 +9,7 @@ router.get('/', addressController.getAddress, (req, res, next) => {
 
 router.post('/', addressController.createAddress, (req, res) => {
     const address = res.locals.address;
-    res.send(address);
+    res.redirect('/cart/address');
 });
 
 module.exports = router;

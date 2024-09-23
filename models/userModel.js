@@ -4,9 +4,11 @@ const Joi = require('joi');
 // Address schema for Mongoose
 const adressSchema = mongoose.Schema({
     type: { type: String, enum: ['Home', 'Work' , 'Other'], required: true },
+    address: { type: String, required: true,trim: true },
+    floor: { type: Number, required: false },
+    landmark: { type: String, required: true,trim: true },
     pincode: { type: Number, required: true, min: 100000, max: 999999 },
-    houseNo: { type: String, required: true },
-    landmark: { type: String, required: true },
+    username: { type: String, required: true },
     phone: { type: Number, required: true, min: 1000000000, max: 999999999999 },
     location: {
         type: {
@@ -16,7 +18,7 @@ const adressSchema = mongoose.Schema({
         coordinates: {
             type: [Number],
         }
-    }
+    },
 }, { timestamps: true });
 
 const Address = mongoose.model("Address", adressSchema);
