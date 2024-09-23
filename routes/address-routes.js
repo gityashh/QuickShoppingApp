@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const addressController = require('../controllers/address-controller');
 
-router.get('/', addressController.getAddress, (req, res) => {
+router.get('/', addressController.getAddress, (req, res, next) => {
     const addresses = res.locals.addresses;
-    res.send(addresses);
+    res.render('address', {addresses});
 });
 
 router.post('/', addressController.createAddress, (req, res) => {

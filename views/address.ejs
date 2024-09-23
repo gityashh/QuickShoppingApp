@@ -10,15 +10,17 @@
         <button class="w-full h-full text-green-500 text-start px-4">+ Add new address</button>
     </section>
    <div class="px-4 "> <h1 class="text-md font-semibold text-zinc-500">Your saved addresses</h1></div>
-   <section id="address-container" class="w-full flex flex-col gap-2 ">
+   <section id="address-container" class="w-full flex flex-col gap-8 ">
+    <% if(addresses.length > 0){ %>
+    <% addresses.forEach(address => { %>
     <div class="flex w-full h-24 bg-white rounded-lg p-4  justify-between border-2 border-green-500">
         <div class="flex gap-8">
             <div class="h-full flex items-center justify-center bg-yellow-200 rounded-lg  text-3xl text-zinc-700 ">
                 <i class="ri-home-3-line px-4" ></i>
             </div>
             <div class="flex flex-col justify-center">
-                <h1 class="text-xl font-semibold">Home</h1>
-                <p class="text-zinc-500">1234 Main St, Anytown, USA</p>
+                <h1 class="text-xl font-semibold"><%= address.type %></h1>
+                <p class="text-zinc-500"><%= address.houseNo %>, <%= address.landmark %>, <%= address.pincode %></p>
             </div>
         </div>
         <div class="flex gap-4 items-center gap-8">
@@ -30,6 +32,12 @@
             </button>
         </div>
     </div>
+    <% }); %>
+    <% } else { %>
+    <div class="flex w-full h-24 bg-white rounded-lg p-4  flex items-center justify-center border-2 border-green-500">
+        <h1 class="text-xl font-semibold">No addresses found</h1>
+    </div>
+    <% } %>
    </section>
    <div class="h-16 bg-white rounded-lg p-2 flex justify-center items-center absolute bottom-3">
       <button class="w-full h-full bg-green-500 text-white rounded-lg text-lg px-4">deliver to this address</button>
