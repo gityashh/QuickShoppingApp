@@ -90,16 +90,16 @@
                                             <i class="ri-map-pin-user-line px-4"></i>
                                             <% } %>
                             </div>
-                            <div class="flex flex-col justify-center">
+                            <div class="flex flex-col justify-center text-overflow">
                                 <h1 class="text-xl font-semibold">
                                     <%= address.username %>
                                 </h1>
-                                <p class="text-zinc-500">
+                                <p class="text-zinc-500 text-ellipsis">
                                     <%= address.address %>, <%= address.landmark %>, <%= address.pincode %>
                                 </p>
                             </div>
                         </div>
-                        <div class="flex gap-4 items-center gap-8">
+                        <div class="flex items-center gap-4">
                             <button id="edit-address" class="text-blue-500 text-2xl">
                                 <i class="ri-edit-line"></i>
                             </button>
@@ -122,6 +122,15 @@
         </div>
     </div>
 
+    <style>
+        .text-ellipsis {
+            white-space: nowrap; /* Prevent text from wrapping */
+            overflow: hidden; /* Hide overflow */
+            text-overflow: ellipsis; /* Add ellipsis (...) */
+            width: 200px; /* Define a width for the container */
+        }
+    </style>
+
     <script>
         document.getElementById("add-address").addEventListener("click", () => {
             document.getElementById("add-address-modal").classList.remove("hidden");
@@ -129,12 +138,9 @@
         document.getElementById("close-modal").addEventListener("click", () => {
             document.getElementById("add-address-modal").classList.add("hidden");
         });
-        document.getElementById("edit-address").addEventListener("click", () => {
-            document.getElementById("edit-address-modal").classList.remove("hidden");
-        });
-        document.getElementById("close-edit-modal").addEventListener("click", () => {
-            document.getElementById("edit-address-modal").classList.add("hidden");
-        });
+
+        document.querySelector("edit")
+        
     </script>
 
     <%- include('./partials/footer'); %>
