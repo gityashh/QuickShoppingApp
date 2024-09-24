@@ -30,9 +30,11 @@ router.get("/products",userLoggedIn,async (req,res)=>{
             ]);
             
             let somethingInCart = false;
+            let cartCount = 0;
             const cart = await Cart.findOne({ user: req.session.passport.user });
-            if(cart && cart.products.length > 0){
+            if(cart && cart.products && cart.products.length > 0){
                 somethingInCart = true;
+                cartCount = cart.products.length;
             }
 
             const randomProducts = await Product.aggregate([
@@ -45,7 +47,7 @@ router.get("/products",userLoggedIn,async (req,res)=>{
                 result[categoryGroup._id] = categoryGroup.products;
             });
 
-            res.render("index", { products: result, rnproducts: randomProducts, somethingInCart: somethingInCart, cartCount: cart.products.length });
+            res.render("index", { products: result, rnproducts: randomProducts, somethingInCart: somethingInCart, cartCount: cartCount });
         } catch (err) {
             console.error("Error fetching products by category", err);
             res.status(500).send("Internal Server Error");
