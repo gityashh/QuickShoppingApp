@@ -8,8 +8,11 @@ router.get('/', addressController.getAddress, (req, res, next) => {
 });
 
 router.post('/', addressController.createAddress, (req, res) => {
-    const address = res.locals.address;
     res.redirect('/cart/address');
+});
+
+router.delete('/delete/:id', addressController.deleteAddress, (req, res) => {
+    res.status(200).json({message: 'Address deleted successfully'});
 });
 
 module.exports = router;

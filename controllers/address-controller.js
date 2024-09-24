@@ -10,11 +10,22 @@ exports.getAddress = async (req, res, next) => {
     }
 }
 
-exports.createAddress = async (req, res) => {
+exports.createAddress = async (req, res, next) => {
     try {
         let {type, address , floor, landmark,pincode, username, phone} = req.body;
         const newAddress = await Address.create({type, address, floor, landmark,pincode, username, phone});
-        res.status(201).json( {address: newAddress} );
+        res.locals.address = newAddress;
+        next();
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+exports.deleteAddress = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        await Address.findByIdAndDelete(id);
+        next();
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
