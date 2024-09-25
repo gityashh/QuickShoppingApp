@@ -43,8 +43,8 @@
         <section id="address-container" class="w-full flex flex-col gap-8 mb-20">
             <% if(addresses.length> 0){ %>
                 <% addresses.forEach(address=> { %>
-                    <div id="edit-address-modal"
-                        class="h-full hidden w-full absolute top-0 left-0 bg-white z-50  flex flex-col p-8">
+                    <div
+                        class="edit-address-modal h-full hidden w-full absolute top-0 left-0 bg-white z-50  flex flex-col p-8">
                         <div class="flex justify-between w-full items-center">
                             <h1 class="text-xl font-semibold">Edit Address</h1>
                             <button id="close-edit-modal" class=" p-2 rounded-lg"><i class="ri-close-line"></i></button>
@@ -141,6 +141,16 @@
         });
         document.getElementById("close-modal").addEventListener("click", () => {
             document.getElementById("add-address-modal").classList.add("hidden");
+        });
+
+        const editAddress = document.querySelectorAll(".edit-address");
+        editAddress.forEach(address => {
+            address.addEventListener("click", () => {
+                document.querySelector(".edit-address-modal").classList.remove("hidden");
+            });
+        });
+        document.getElementById("close-edit-modal").addEventListener("click", () => {
+            document.querySelector(".edit-address-modal").classList.add("hidden");
         });
 
         const deleteAddress = document.querySelectorAll(".delete-address");

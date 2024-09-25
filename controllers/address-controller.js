@@ -39,3 +39,13 @@ exports.deleteAddress = async (req, res, next) => {
         res.status(500).json({ error: error.message });
     }
 }
+
+exports.updateAddress = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const updatedAddress = await Address.findByIdAndUpdate(id, req.body);
+        next();
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}

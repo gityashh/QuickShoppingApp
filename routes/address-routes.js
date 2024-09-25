@@ -24,6 +24,10 @@ router.post('/', userLoggedIn, addressController.createAddress, async (req, res)
     }
 });
 
+router.post('/edit/:id', userLoggedIn, addressController.updateAddress, async (req, res) => {
+    res.redirect('/cart/address');
+});
+
 router.delete('/delete/:id', userLoggedIn, addressController.deleteAddress, async (req, res) => {
     try {
         if(res.locals.address){
