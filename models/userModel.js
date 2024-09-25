@@ -7,6 +7,7 @@ const adressSchema = mongoose.Schema({
     landmark: { type: String, required: true,trim: true },
     pincode: { type: Number, required: true, min: 100000, max: 999999 },
     username: { type: String, required: true },
+    isDefault: { type: Boolean, default: false },
     phone: { type: Number, required: true, min: 1000000000, max: 999999999999 },
     location: {
         type: {
