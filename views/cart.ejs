@@ -166,8 +166,8 @@
             <div class="bg-white p-4 rounded-lg shadow fixed bottom-0 inset-x-0">
                 <div class="flex justify-between items-center">
                     <div>
-                        <p class="text-sm">Delivering to Home</p>
-                        <p class="text-xs text-gray-500">1st Floor M2, 132C Apex Builders Sector C Indrauri, saarthi...
+                        <p class="text-sm">Delivering to <%= defaultAddress.type %></p>
+                        <p class="text-xs text-gray-500 text-ellipsis"><%= defaultAddress.username %>, <%= defaultAddress.address %> <%= defaultAddress.landmark %>
                         </p>
                     </div>
                     <a href="/cart/address" class="text-blue-500">Change</a>
@@ -175,7 +175,7 @@
                 <div class="flex justify-between items-center mt-2">
                     <div>
                         <p class="text-sm">PAY USING</p>
-                        <p class="text-xs text-gray-500">Paytm UPI</p>
+                        <p class="text-xs text-gray-500">Razorpay</p>
                     </div>
                     <div>
                         <p class="text-lg font-bold">₹<%= finalprice %>
@@ -195,6 +195,14 @@
                 </div>
             <% } %>
         </div>
+        <style>
+            .text-ellipsis {
+                white-space: nowrap; /* Prevent text from wrapping */
+                overflow: hidden; /* Hide overflow */
+                text-overflow: ellipsis; /* Add ellipsis (...) */
+                width: 200px; /* Define a width for the container */
+            }
+        </style>
         <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"

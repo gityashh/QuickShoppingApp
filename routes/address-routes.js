@@ -41,4 +41,11 @@ router.delete('/delete/:id', userLoggedIn, addressController.deleteAddress, asyn
     }
 });
 
+router.post('/set-default', userLoggedIn, addressController.setDefaultAddress, async (req, res) => {
+    let user = await User.findOne({ _id: req.session.passport.user });
+    user.defaultAddress = res.locals.address._id;
+    await user.save();
+    res.status(200).json({message: 'Address set as default successfully'});
+});
+
 module.exports = router;

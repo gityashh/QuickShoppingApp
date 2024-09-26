@@ -40,6 +40,25 @@ exports.deleteAddress = async (req, res, next) => {
     }
 }
 
+exports.setDefaultAddress = async (req, res, next) => {
+    try {
+        let {addressId} = req.body;
+        let address = await Address.findById(addressId);
+        if(address.isDefault){
+            next();
+        }
+        else{
+            await Address.updateMany({isDefault: true}, {isDefault: false});
+            address.isDefault = true;
+            res.locals.address = address;
+            await address.save();
+            next();
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
 exports.updateAddress = async (req, res, next) => {
     try {
         const { id } = req.params;

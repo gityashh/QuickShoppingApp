@@ -10,7 +10,7 @@ const addressRoutes = require("./address-routes");
 router.get("/", userLoggedIn, async (req, res) => {
     try {
         let cart = await Cart.findOne({ user: req.session.passport.user }).populate("products");
-        let user = await User.findOne({ _id: req.session.passport.user });
+        let user = await User.findOne({ _id: req.session.passport.user }).populate("defaultAddress");
 
         let defaultAddress = user.defaultAddress;
 
@@ -30,7 +30,7 @@ router.get("/", userLoggedIn, async (req, res) => {
         });
 
         let finalarray = Object.values(cartData);
-
+        console.log(defaultAddress);
         res.render("cart", { cart : finalarray, finalprice:cart.totalPrice ,defaultAddress:defaultAddress});
     } catch (error) {
         res.status(500).send(error.message);

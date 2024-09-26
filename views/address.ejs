@@ -78,7 +78,7 @@
                             <button class="bg-green-700 text-white p-2 rounded-lg">Save address</button>
                         </form>
                     </div>
-                    <div class="flex w-full h-24 bg-white rounded-lg p-4  justify-between border-2 border-green-700">
+                    <div id="<%= address._id.toString() %>" class="address-div flex w-full h-24 bg-white rounded-lg p-4  justify-between <%= address.isDefault ? 'border-2 border-green-500' : '' %>">
                         <div class="flex gap-8">
                             <div
                                 class="h-full flex items-center justify-center bg-yellow-300 rounded-lg  text-3xl text-zinc-700 ">
@@ -118,7 +118,7 @@
         </section>
         <% if(addresses.length> 0){ %>
         <div class="h-16 bg-white rounded-lg p-2 flex justify-center items-center absolute bottom-8 z-20">
-            <button class="w-full h-full bg-green-700 text-white rounded-lg text-lg px-4">deliver to this
+            <button onclick="deliverToAddress()" class="w-full h-full bg-green-700 text-white rounded-lg text-lg px-4">deliver to this
                 address</button>
         </div>
         <% } %>
@@ -136,6 +136,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js" integrity="sha512-DdX/YwF5e41Ok+AI81HI8f5/5UsoxCVT9GKYZRIzpLxb8Twz4ZwPPX+jQMwMhNQ9b5+zDEefc+dcvQoPWGNZ3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
+
+        function deliverToAddress(){
+            window.location.href = "/cart/";
+        }
         document.getElementById("add-address").addEventListener("click", () => {
             document.getElementById("add-address-modal").classList.remove("hidden");
         });
@@ -152,7 +156,24 @@
         const closeEditModal = document.querySelectorAll(".close-edit-modal");
         closeEditModal.forEach(modal => {
             modal.addEventListener("click", () => {
-                document.querySelector(".edit-address-modal").classList.add("hidden");
+                document.querySelectorAll(".edit-address-modal").forEach(modal => {
+                    modal.classList.add("hidden");
+                });
+            });
+        });
+
+        const addressDiv = document.querySelectorAll(".address-div");
+        addressDiv.forEach(address => {
+            address.addEventListener("click", () => {
+                axios.post("/cart/address/set-default", {
+                    addressId: address.getAttribute("id")
+                })
+                .then(res=>{
+                    window.location.href = "/cart/address";
+                })
+                .catch(err=>{
+                    console.log(err);
+                })
             });
         });
 
