@@ -5,6 +5,7 @@ const { Product } = require("../models/productSchema");
 const {userLoggedIn} = require("../middlewares/user-middleware");
 const { Cart } = require("../models/cartSchema");
 const { Category } = require("../models/categorySchema");
+const orderRouter = require("./order-routes");
 
 router.get("/products",userLoggedIn,async (req,res)=>{
     const getTopProductsByCategory = async () => {
@@ -76,5 +77,7 @@ router.get("/logout", (req, res) => {
         });
     });
 });
+
+router.use("/orders",orderRouter);
 
 module.exports = router;

@@ -228,7 +228,13 @@
                                     })
                                         .then(function (response) {
                                             let { razorpayOrderId, razorpayPaymentId, signature } = JSON.parse(response.config.data)
-                                            window.location.href = `/order/${razorpayOrderId}/${razorpayPaymentId}/${signature}`
+                                           axios.post(`/order/${razorpayOrderId}/${razorpayPaymentId}/${signature}`)
+                                           .then(res=>{
+                                              window.location.href = "/user/orders"
+                                           })
+                                           .catch(err=>{
+                                            console.log(err);
+                                           })
                                         })
                                         .catch(function (error) {
                                             console.error(error);

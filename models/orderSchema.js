@@ -24,7 +24,6 @@ const orderSchema = mongoose.Schema({
     delivery: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "deliverySchema",
-        required: true
     }
 }, 
 { timestamps: true }
