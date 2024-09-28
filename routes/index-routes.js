@@ -5,6 +5,10 @@ router.get("/",(req,res)=>{
     res.redirect('/user/products')
 });
 
+router.get("/test",(req,res)=>{
+    
+})
+
 
 router.get("/map/",(req,res)=>{
     res.render("map")

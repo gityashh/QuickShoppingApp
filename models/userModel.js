@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const {cartSchema} = require("./cartSchema");
+const {orderSchema} = require("./orderSchema");
 // Address schema for Mongoose
 const adressSchema = mongoose.Schema({
     type: { type: String, enum: ['Home', 'Work' , 'Other'], required: true },
@@ -29,6 +31,8 @@ const userSchema = mongoose.Schema({
     email: { type: String, required: true, unique: true, match: /^\S+@\S+\.\S+$/ },
     savedAddress: [adressSchema],
     defaultAddress: { type: mongoose.Schema.Types.ObjectId, ref: 'Address', required: false },
+    cart:[cartSchema],
+    orders:[orderSchema],
 }, 
 { timestamps: true }
 );
