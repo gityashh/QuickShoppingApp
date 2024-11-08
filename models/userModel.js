@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const {cartSchema} = require("./cartSchema");
-const {orderSchema} = require("./orderSchema");
+const { cartSchema } = require("./cartSchema");
+const { orderSchema } = require("./orderSchema");
 // Address schema for Mongoose
 const adressSchema = mongoose.Schema({
     type: { type: String, enum: ['Home', 'Work' , 'Other'], required: true },

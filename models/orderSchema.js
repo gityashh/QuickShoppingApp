@@ -35,5 +35,6 @@ const Order = mongoose.model('Order', orderSchema);
 
 // Export the validation function
 module.exports = {
-    Order
+    Order,
+    orderSchema
 };
